@@ -17,8 +17,30 @@ const handleHomePage = (req, res) => {
 };
 
 const handleProfilePage = (req, res) => {
-  let _id = req.params.id;
-  res.send(_id);
+  const _id = req.params.id;
+  let user;
+  users.forEach((userItem) => {
+    if (userItem._id === _id) {
+      user = userItem;
+      res.status(200).render("pages/profile.ejs", {
+        user: user,
+        friends: friends(user),
+      });
+    }
+  });
+  res.status(400).send("Unable to find");
+};
+
+const friends = (user) => {
+  let friendsList = [];
+  for (let i = 0; i < user.friends.length; i++) {
+    users.forEach((userInfo) => {
+      if (userInfo._id === user.friends[i]) {
+        friendsList.push(userInfo);
+      }
+    });
+  }
+  return friendsList;
 };
 // -----------------------------------------------------
 // server endpoints
