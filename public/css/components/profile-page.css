@@ -1,10 +1,11 @@
 /* css here */
 .profile-page {
+  margin: 0px 200px 200px 200px;
 }
 .profile-page--banner {
   background: url(/images/facespace_bg.jpg) center center;
   background-size: cover;
-  height: 400px;
+  height: 300px;
 }
 .profile-page__user {
   margin: 0 auto;
@@ -55,7 +56,7 @@
   }
   .profile-page__user--avatar {
     margin-top: -160px;
-    width: 320px;
+    width: 250px;
   }
   .profile-page__friends--list {
     justify-content: flex-start;

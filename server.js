@@ -28,7 +28,26 @@ const handleProfilePage = (req, res) => {
       });
     }
   });
-  res.status(400).send("Unable to find");
+  res.status(404).send("Unable to find");
+};
+
+const handleName = (req, res) => {
+  console.log("yeah");
+  let firstName = req.query.firstName;
+  let found = users.find((user) => user.name === firstName);
+
+  if (found) {
+    res.status(200).render("pages/profile.ejs", {
+      user: found,
+      friends: friends(found),
+    });
+  } else {
+    res.status(404).redirect("/signin");
+  }
+};
+
+const handleSignin = (req, res) => {
+  res.status(200).render("pages/signin.ejs");
 };
 
 const friends = (user) => {
@@ -54,6 +73,10 @@ express()
   .get("/", handleHomePage)
   //profile pages
   .get("/users/:id", handleProfilePage)
+  //signinpage
+  .get("/signin", handleSignin)
+  //signinname
+  .get("/getname", handleName)
   // a catchall endpoint that will send the 404 message.
   .get("*", handleFourOhFour)
 
